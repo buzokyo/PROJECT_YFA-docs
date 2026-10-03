@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300" viewBox="0 0 1100 300">
+<style>text{font-family:Arial,sans-serif;fill:#202124}.t{font-size:22px;font-weight:700}.s{font-size:16px}.box{fill:#f8f9fa;stroke:#506784;stroke-width:2}.line{stroke:#506784;stroke-width:4;fill:none}.arrow{fill:#506784}</style>
+<rect width="1100" height="300" fill="white"/>
+<rect class="box" x="35" y="75" rx="12" width="210" height="135"/><text class="t" x="140" y="125" text-anchor="middle">Android device</text><text class="s" x="140" y="158" text-anchor="middle">PROJECT YFA</text><text class="s" x="140" y="184" text-anchor="middle">Live · Logs · MQTT</text>
+<rect class="box" x="360" y="75" rx="12" width="230" height="135"/><text class="t" x="475" y="125" text-anchor="middle">USB CAN adapter</text><text class="s" x="475" y="158" text-anchor="middle">Waveshare RP2350-CAN</text><text class="s" x="475" y="184" text-anchor="middle">gs_usb · 500 kbit/s</text>
+<rect class="box" x="720" y="35" rx="12" width="330" height="215"/><text class="t" x="885" y="78" text-anchor="middle">Vehicle CAN network</text>
+<rect class="box" x="750" y="105" rx="7" width="62" height="48"/><text class="s" x="781" y="136" text-anchor="middle">ECM</text><rect class="box" x="827" y="105" rx="7" width="62" height="48"/><text class="s" x="858" y="136" text-anchor="middle">ABS</text><rect class="box" x="904" y="105" rx="7" width="62" height="48"/><text class="s" x="935" y="136" text-anchor="middle">BCM</text><rect class="box" x="981" y="105" rx="7" width="48" height="48"/><text class="s" x="1005" y="136" text-anchor="middle">…</text>
+<line class="line" x1="245" y1="142" x2="360" y2="142"/><polygon class="arrow" points="350,134 360,142 350,150"/><text class="s" x="302" y="126" text-anchor="middle">USB</text>
+<line class="line" x1="590" y1="142" x2="720" y2="142"/><polygon class="arrow" points="710,134 720,142 710,150"/><text class="s" x="655" y="126" text-anchor="middle">CAN</text>
+</svg>

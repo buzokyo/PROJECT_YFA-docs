@@ -1,0 +1,65 @@
+﻿site_name: Посібник користувача PROJECT YFA
+site_url: https://buzokyo.github.io/PROJECT_YFA-docs/
+site_description: Посібник користувача та технічний довідник PROJECT YFA і USB CAN-адаптера
+docs_dir: docs/uk
+site_dir: site/uk
+
+theme:
+  name: material
+  language: uk
+  features:
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra:
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+    - name: Українська
+      link: /uk/
+      lang: uk
+
+nav:
+  - Головна: index.md
+  - Вступ:
+      - Про PROJECT YFA: introduction/about-yfa.md
+  - Початок роботи:
+      - Вимоги: getting-started/requirements.md
+      - Встановлення: getting-started/installation.md
+      - Перше підключення: getting-started/first-connection.md
+  - USB CAN-адаптер:
+      - Огляд: usb-adapter/overview.md
+      - Waveshare RP2350-CAN: usb-adapter/waveshare-rp2350-can.md
+      - Оновлення прошивки: usb-adapter/firmware-update.md
+      - Журнал змін прошивки: usb-adapter/firmware-changelog.md
+  - Використання YFA:
+      - Налаштування сигналів: using-yfa/signals.md
+      - Live Signals: using-yfa/live-signals.md
+      - Налаштування: using-yfa/settings.md
+      - Інформація ECU: using-yfa/ecu-information.md
+      - Журнали: using-yfa/logs.md
+      - MQTT і Home Assistant: using-yfa/mqtt-home-assistant.md
+  - Усунення несправностей: troubleshooting/index.md
+  - Політика конфіденційності: privacy-policy.md
+
+extra_javascript:
+  - javascripts/language-switch.js
+
+

@@ -1,0 +1,65 @@
+﻿site_name: PROJECT YFA User Manual
+site_url: https://buzokyo.github.io/PROJECT_YFA-docs/
+site_description: User manual and technical reference for PROJECT YFA and its USB CAN adapter
+docs_dir: docs/en
+site_dir: site/en
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra:
+  alternate:
+    - name: English
+      link: /en/
+      lang: en
+    - name: Українська
+      link: /uk/
+      lang: uk
+
+nav:
+  - Home: index.md
+  - Introduction:
+      - About PROJECT YFA: introduction/about-yfa.md
+  - Getting started:
+      - Requirements: getting-started/requirements.md
+      - Installation: getting-started/installation.md
+      - First connection: getting-started/first-connection.md
+  - USB CAN adapter:
+      - Overview: usb-adapter/overview.md
+      - Waveshare RP2350-CAN: usb-adapter/waveshare-rp2350-can.md
+      - Firmware update: usb-adapter/firmware-update.md
+      - Firmware changelog: usb-adapter/firmware-changelog.md
+  - Using YFA:
+      - Signals configuration: using-yfa/signals.md
+      - Live Signals: using-yfa/live-signals.md
+      - Settings: using-yfa/settings.md
+      - ECU information: using-yfa/ecu-information.md
+      - Logs: using-yfa/logs.md
+      - MQTT and Home Assistant: using-yfa/mqtt-home-assistant.md
+  - Troubleshooting: troubleshooting/index.md
+  - Privacy Policy: privacy-policy.md
+
+extra_javascript:
+  - javascripts/language-switch.js
+
+
