@@ -1,0 +1,76 @@
+name: Deploy user manual
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - "mkdocs.en.yml"
+      - "mkdocs.uk.yml"
+      - ".github/workflows/docs-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install MkDocs
+        run: pip install "mkdocs-material==9.7.7"
+
+      - name: Build English manual
+        run: mkdocs build --strict -f mkdocs.en.yml
+
+      - name: Build Ukrainian manual
+        run: mkdocs build --strict -f mkdocs.uk.yml
+
+      - name: Add language landing page
+        run: |
+          cat > site/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta http-equiv="refresh" content="0; url=en/">
+            <link rel="canonical" href="en/">
+            <title>PROJECT YFA User Manual</title>
+          </head>
+          <body><a href="en/">PROJECT YFA User Manual</a></body>
+          </html>
+          EOF
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
