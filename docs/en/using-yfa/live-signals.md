@@ -127,6 +127,8 @@ Adapter debug logging is a separate option under **Settings → Logging** and wr
 
 The overflow menu also provides the **MQTT** control. Broker configuration is under **Settings → Connection → MQTT broker**.
 
+MQTT is an acquisition-session feature. Enabling the control does not keep a broker connection open while acquisition is stopped. When acquisition starts, CANly connects if MQTT is enabled; when acquisition stops, it publishes retained `offline` when possible and disconnects.
+
 The broker configuration includes:
 
 - host or IP address
@@ -136,7 +138,9 @@ The broker configuration includes:
 - base topic
 - TLS on/off
 
-MQTT is independent of the CAN/UDS acquisition-mode choice.
+Signals are selected for MQTT separately in the **Signals** editor with the cloud-upload control. A signal may be MQTT-only and does not need to be visible in LIVE or PLOT.
+
+MQTT is independent of acquisition logging and can be used with any acquisition mode that produces the selected decoded signals.
 
 ## Connection and display settings
 

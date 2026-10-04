@@ -1,11 +1,11 @@
 ﻿# Installation
 
-PROJECT YFA is currently a development project rather than a general public application-store release.
+CANly can be installed from the distribution channel used for the current build. During development and testing, this may be a locally installed APK or a Google Play testing release.
 
-Install the appropriate PROJECT YFA APK on the Android device using the development installation method used for the project.
-
-After installation, open PROJECT YFA and confirm that the main interface loads before connecting the USB CAN adapter.
+After installation, open **CANly** and confirm that the main interface loads before connecting the USB CAN adapter.
 
 ## USB permission
 
-Android controls access to USB devices. When the adapter is connected, Android may ask whether PROJECT YFA is allowed to access it. Grant access so the application can communicate with the adapter.
+Android controls access to USB devices. On the first connection, Android may ask whether CANly is allowed to access the PROJECT YFA USB CAN adapter and may offer to associate the device with CANly.
+
+Grant access so CANly can communicate with the adapter. If you choose the Android option to remember/associate the USB device with CANly, later cable connections can open CANly automatically without repeating the USB permission prompt.

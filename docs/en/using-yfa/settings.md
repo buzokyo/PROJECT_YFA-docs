@@ -22,6 +22,12 @@ The selected theme is applied immediately.
 
 This option is enabled by default. Turning it off allows the normal Android screen timeout to apply during acquisition.
 
+### Audio alerts
+
+**Audio alerts** is the master switch for CANly's audible and spoken vehicle alerts.
+
+When disabled, configured signal alerts do not play. Turning the master switch off also resets the current alert state. Individual signal alerts are configured from the **Signals** editor with the bell control.
+
 ## Connection
 
 ### Adapter
@@ -55,21 +61,29 @@ Resetting or unplugging the adapter clears the runtime firmware flag. PROJECT YF
 
 ### Acquisition mode
 
-This setting determines what happens when you start acquisition.
+The available acquisition modes depend on the selected adapter and whether **Enable advanced modes** is turned on.
 
-**Ask first** is the default. PROJECT YFA asks which acquisition mode to use each time acquisition starts.
+With advanced modes **off**:
 
-**Raw CAN** decodes selected signals directly from normal CAN frames.
+- **USB CANnectivity** offers **Raw CAN**, **Active UDS**, and **Ask first**;
+- **Bluetooth ELM327** offers **Active UDS** only.
 
-**Passive UDS** listens for selected UDS responses without sending the diagnostic requests itself.
+With advanced modes **on**, both transports can expose **Raw CAN**, **Passive UDS**, and **Active UDS**. **Ask first** is shown when more than one concrete mode is available.
 
-**Active UDS** actively sends the selected diagnostic requests to the ECU and processes its responses.
+The modes behave as follows:
 
-See **Live Signals** for the detailed behavior of each acquisition mode.
+- **Raw CAN** — decode selected signals directly from normal CAN frames.
+- **Passive UDS** — listen for selected UDS responses without sending the diagnostic requests.
+- **Active UDS** — actively send the selected read requests and decode their responses.
+- **Ask first** — choose one of the currently available modes when acquisition starts.
+
+If a previously selected mode becomes unavailable because the adapter changes or advanced modes are disabled, CANly automatically falls back to a valid mode.
+
+See **Live Signals** for detailed acquisition behavior.
 
 ### MQTT broker
 
-**MQTT broker** configures the broker used by PROJECT YFA's MQTT telemetry transport.
+**MQTT broker** configures the broker used by CANly's MQTT telemetry transport.
 
 The dialog contains:
 
@@ -88,7 +102,7 @@ project_yfa/vehicle
 
 The port must be between 1 and 65535. The host and base topic cannot be empty before the configuration can be saved. Leading and trailing `/` characters are removed from the saved base topic.
 
-PROJECT YFA derives two topics from the base topic:
+CANly derives two topics from the base topic:
 
 ```text
 <base topic>/state
@@ -99,8 +113,7 @@ The MQTT password is stored using Android Keystore-backed encryption. Older plai
 
 TLS switches between an encrypted broker connection and plain MQTT. Broker certificate and network requirements are determined by the MQTT server configuration.
 
-!!! note
-    Saving the broker settings configures the MQTT transport. MQTT telemetry is enabled or disabled separately from the main screen's MQTT control.
+Saving the broker settings configures the MQTT transport. MQTT telemetry is enabled separately from the main screen. When enabled, the broker connection is opened only while an acquisition session is running.
 
 ## Logging
 
@@ -125,13 +138,19 @@ Changing the selected root changes where all of these files are read and written
 
 ### Adapter debug logging
 
-### Adapter debug logging
-
 **Adapter debug logging** enables detailed diagnostic logging for the adapter transport.
 
 It is disabled by default. Enable it when investigating connection, USB, CAN transport, or adapter communication problems. Normal users do not need to leave this option enabled continuously.
 
 Adapter debug logging is separate from the normal acquisition log control on the main screen.
+
+### Enable advanced modes
+
+**Enable advanced modes** exposes acquisition modes intended for development and troubleshooting.
+
+This switch is available only while **Adapter debug logging** is enabled. Turning adapter debug logging off automatically turns advanced modes off as well.
+
+Keep advanced modes disabled for normal use unless you specifically need Passive UDS or another transport/mode combination hidden by the normal safety-oriented mode policy.
 
 ## Related pages
 

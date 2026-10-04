@@ -1,6 +1,6 @@
-﻿site_name: Посібник користувача PROJECT YFA
-site_url: https://buzokyo.github.io/PROJECT_YFA-docs/
-site_description: Посібник користувача та технічний довідник PROJECT YFA і USB CAN-адаптера
+﻿site_name: Посібник користувача CANly
+site_url: https://buzokyo.github.io/PROJECT_YFA/
+site_description: Посібник користувача та технічний довідник CANly і USB CAN-адаптера PROJECT YFA
 docs_dir: docs/uk
 site_dir: site/uk
 
@@ -39,7 +39,7 @@ extra:
 nav:
   - Головна: index.md
   - Вступ:
-      - Про PROJECT YFA: introduction/about-yfa.md
+      - Про CANly: introduction/about-yfa.md
   - Початок роботи:
       - Вимоги: getting-started/requirements.md
       - Встановлення: getting-started/installation.md
@@ -49,7 +49,7 @@ nav:
       - Waveshare RP2350-CAN: usb-adapter/waveshare-rp2350-can.md
       - Оновлення прошивки: usb-adapter/firmware-update.md
       - Журнал змін прошивки: usb-adapter/firmware-changelog.md
-  - Використання YFA:
+  - Використання CANly:
       - Налаштування сигналів: using-yfa/signals.md
       - Live Signals: using-yfa/live-signals.md
       - Налаштування: using-yfa/settings.md
@@ -61,5 +61,4 @@ nav:
 
 extra_javascript:
   - javascripts/language-switch.js
-
 

@@ -8,7 +8,15 @@ Configure the broker in **Settings → Connection → MQTT broker**, then use th
 
 PROJECT YFA uses MQTT 5.
 
-The configured broker host, port, optional username/password, and TLS setting are used when MQTT is enabled. With TLS enabled, the Android platform's default trust configuration is used.
+MQTT enablement and the broker connection now follow the acquisition lifecycle:
+
+- enabling **MQTT** on the main screen arms telemetry but does not keep a broker connection open while acquisition is stopped;
+- when MQTT is enabled and an acquisition session starts, CANly opens the MQTT connection;
+- when acquisition stops, CANly publishes retained `offline` when possible and disconnects;
+- if MQTT is disabled during acquisition, the MQTT transport stops immediately;
+- the next acquisition session reconnects automatically if MQTT remains enabled.
+
+The configured broker host, port, optional username/password, and TLS setting are used when the transport starts. With TLS enabled, the Android platform's default trust configuration is used.
 
 Each connection uses a generated client ID beginning with:
 
@@ -35,7 +43,7 @@ project_yfa/vehicle/availability
 
 Availability messages use `online` and `offline`. They are retained and published with QoS 1. PROJECT YFA also configures a retained `offline` Last Will message.
 
-When MQTT is manually stopped after a successful connection, PROJECT YFA attempts to publish `offline` before disconnecting.
+When the MQTT transport stops after a successful connection — for example when acquisition ends or MQTT is disabled — CANly attempts to publish retained `offline` before disconnecting.
 
 ## Telemetry state
 
@@ -59,11 +67,13 @@ A simplified example is:
 
 Only snapshots containing values are published. State messages are retained and use QoS 1.
 
-The telemetry values originate from PROJECT YFA's decoded acquisition data. The exact set therefore depends on the ECU, acquisition mode, available data, and selected signals.
+MQTT publication is controlled per signal in the **Signals** editor. Only signals selected with the MQTT/cloud-upload control are eligible for publication. A signal can be MQTT-only: it does not need to be visible in LIVE or selected for PLOT.
+
+The telemetry values originate from CANly's decoded acquisition data, so the final set also depends on the ECU, acquisition mode, and data actually available during the session.
 
 ## Home Assistant MQTT Discovery
 
-For every telemetry signal seen after an MQTT connection is established, PROJECT YFA publishes a retained Home Assistant sensor discovery configuration.
+For every MQTT-selected telemetry signal observed after a connection is established, CANly publishes a retained Home Assistant sensor discovery configuration.
 
 Discovery topics follow this pattern:
 
@@ -75,14 +85,16 @@ All discovered sensors are grouped under one Home Assistant device named **PROJE
 
 Discovery entries use the PROJECT YFA state and availability topics. Signal units are included when available. Numeric, non-discrete measurements are marked with Home Assistant's `measurement` state class, and display precision is suggested when the signal definition provides it.
 
-PROJECT YFA also removes the legacy discovery topic form for a signal when publishing its current discovery entry.
+When a previously discovered signal is later deselected from MQTT, CANly removes its retained Home Assistant discovery entry after connecting and reconciling the selected signal set. This keeps Home Assistant from retaining entities that are no longer selected for MQTT telemetry.
+
+CANly also removes the legacy discovery topic form for a signal when publishing its current discovery entry.
 
 !!! note
     MQTT Discovery must be enabled in the Home Assistant MQTT integration for these automatically advertised sensor entities to appear.
 
 ## Reconnection
 
-If the MQTT connection is lost while MQTT remains enabled, PROJECT YFA automatically schedules reconnection attempts.
+If the MQTT connection is lost while MQTT is enabled **and acquisition is still running**, CANly automatically schedules reconnection attempts.
 
 The current retry delays are:
 
@@ -90,9 +102,9 @@ The current retry delays are:
 1 s → 2 s → 5 s → 10 s → 15 s
 ```
 
-Further attempts continue at 15-second intervals until the transport is stopped or a connection succeeds.
+Further attempts continue at 15-second intervals until the acquisition session stops, MQTT is disabled, or a connection succeeds.
 
-After reconnecting, the discovery set is rebuilt as telemetry signals are observed again.
+After reconnecting, availability returns to `online`, the current selected telemetry snapshot can be republished, and Home Assistant discovery is reconciled.
 
 ## Status on the main screen
 

@@ -1,6 +1,6 @@
-﻿site_name: PROJECT YFA User Manual
-site_url: https://buzokyo.github.io/PROJECT_YFA-docs/
-site_description: User manual and technical reference for PROJECT YFA and its USB CAN adapter
+﻿site_name: CANly User Manual
+site_url: https://buzokyo.github.io/PROJECT_YFA/
+site_description: User manual and technical reference for CANly and the PROJECT YFA USB CAN adapter
 docs_dir: docs/en
 site_dir: site/en
 
@@ -39,7 +39,7 @@ extra:
 nav:
   - Home: index.md
   - Introduction:
-      - About PROJECT YFA: introduction/about-yfa.md
+      - About CANly: introduction/about-yfa.md
   - Getting started:
       - Requirements: getting-started/requirements.md
       - Installation: getting-started/installation.md
@@ -49,7 +49,7 @@ nav:
       - Waveshare RP2350-CAN: usb-adapter/waveshare-rp2350-can.md
       - Firmware update: usb-adapter/firmware-update.md
       - Firmware changelog: usb-adapter/firmware-changelog.md
-  - Using YFA:
+  - Using CANly:
       - Signals configuration: using-yfa/signals.md
       - Live Signals: using-yfa/live-signals.md
       - Settings: using-yfa/settings.md
@@ -61,5 +61,4 @@ nav:
 
 extra_javascript:
   - javascripts/language-switch.js
-
 

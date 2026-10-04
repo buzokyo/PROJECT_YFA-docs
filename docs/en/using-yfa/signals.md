@@ -25,18 +25,21 @@ Each group also shows how many of its signals are selected for LIVE and PLOT.
 
 Tap a UDS or RAW group to expand its signal list.
 
-Two selection columns are available:
+Each signal can participate independently in four functions:
 
-**LIVE** — the eye column. A checked signal is shown as a numeric/live value in the Live view.
+- **LIVE** — the eye column. Shows the signal as a numeric/live value.
+- **PLOT** — the chart column. Adds the signal to Plot history and display.
+- **MQTT** — the cloud-upload column. Allows the signal to be published to the configured MQTT broker.
+- **Alerts** — the bell column. Opens or enables the signal's audio-alert configuration.
 
-**PLOT** — the chart column. A checked signal is collected for and displayed in the Plot view.
+A signal may be selected for any combination of these functions. A signal does not have to be visible in LIVE to be acquired for PLOT, MQTT, or an alert.
 
-A signal may be selected for LIVE, PLOT, **both**, or neither.
+The row of icons above an expanded signal list also acts as a bulk-selection control. Tapping the **LIVE**, **PLOT**, or **MQTT** icon opens a small menu with **Select all** and **Deselect all** for that group.
 
-The group is considered enabled whenever at least one of its signals is selected for LIVE or PLOT. If every signal in a group is cleared from both columns, that group becomes inactive.
+A group is active whenever at least one of its signals is needed by LIVE, PLOT, MQTT, or an enabled alert. If none of those functions needs any signal in the group, the group becomes inactive.
 
 !!! note
-    PLOT-only signals still participate in acquisition even though they are not displayed in the Live value grid. This allows a signal to be graphed without using space in the Live view.
+    PLOT-only, MQTT-only, and alert-only signals still participate in acquisition even though they are not shown in the Live value grid.
 
 ## Signal order
 
@@ -52,7 +55,7 @@ Press **APPLY (n)** to save the ECU configuration. The number in parentheses is 
 
 **Cancel** or the back control closes the editor without applying the current edits.
 
-Apply is available when the ECU configuration contains at least one enabled request or CAN group.
+Apply is available when the ECU configuration contains at least one active request or CAN group. A group can be active because of LIVE, PLOT, MQTT, or an enabled alert.
 
 ## How the selections affect acquisition
 
@@ -60,7 +63,7 @@ Apply is available when the ECU configuration contains at least one enabled requ
 
 For Raw CAN acquisition, PROJECT YFA monitors the enabled CAN IDs. Within those groups, signals selected for either LIVE or PLOT are part of the acquisition configuration.
 
-Signals selected for LIVE are shown in the Live grid. PLOT-selected signals are available to the plot history.
+Signals selected for LIVE are shown in the Live grid. PLOT-selected signals are available to the plot history. MQTT-selected signals are eligible for broker publication, and enabled alert signals remain available to the alert evaluator.
 
 ### Passive UDS
 
@@ -86,7 +89,7 @@ This warning does **not** apply to the USB gs_usb transport.
 
 PROJECT YFA stores these preferences in its private application storage.
 
-UDS defaults are defined per ECU. Default requests start with their available LIVE signals visible. RAW CAN groups are disabled by default, although their signal definitions are prepared for selection.
+UDS defaults are defined per ECU. Default requests start with their available LIVE signals visible. RAW CAN groups are disabled by default, although their signal definitions are prepared for selection. MQTT and alert choices are stored alongside the other per-signal preferences.
 
 When the packaged PROJECT YFA signal/request database changes, the saved configuration is reconciled with the new database. Existing valid visibility, plot, and ordering choices are preserved; removed signals disappear, and newly added signals are added to the configuration automatically.
 
